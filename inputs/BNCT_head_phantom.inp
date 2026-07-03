@@ -1,0 +1,755 @@
+$$$        SIMULATION PARAMETERS       $$$
+set: c72[50.0E-03]
+$the energy of projected neutrons
+
+set: c73[-9.0]
+$the placement x0 of the beam (-19,-9)
+
+set: c74[-5.8]
+$the placement x0 of the tumor (0,-5.8) (the detector will always be positioned as if the tumor were at -5.8)
+
+set: c1[400] 
+$600 - detailed & 1 min., 400 - optimal & 30 s, 200 - general & 10 s
+
+set: c84[0.5]
+$skull thickness which regulates shape of bone, muscle, fat and skin (0.25,1.5)
+
+
+$$$        SWITCHES FOR TALLIES       $$$
+set: %switch%[on]
+$the switch turns "on" or "off" t-tracks for flux analysis// graphics 
+
+set: %switch2%[off]
+$the switch turns "on" or "off" dose calculation across the whole model
+
+set: %switch3%[off]
+$the switch turns "on" or "off" hnb doses
+
+set: %switch4%[off]
+$the switch turns "on" or "off" detector tallies
+
+set: %switch4.1%[off]
+$the switch turns "on" or "off" spectrum with gaussian smearing, using usrresol.f
+
+set: %switch5%[off]         
+$the switch turns "on" or "off" calculations for the tumor
+
+[ T i t l e ]
+Sample input for BNCT calculation
+
+
+[ P a r a m e t e r s ]
+ icntl    =           0     # (D=0) 3:ECH 5:NOR 6:SRC 7,8:GSH 11:DSH 12:DUMP
+ maxcas   =           2000    # (D=10) number of particles per one batch 20000 
+ maxbch   =           100     # (D=10) number of batches 100
+ ireschk  =           1     # (D=0) Restart, 0:Check consistency, 1:No check
+ e-mode   =           2     # 0: sampling mode; 1: adds evaporation;  2: adds also accurate charged particle yields and accurate neutron  energy distribution
+ itall    =           1     
+ negs     =           1 
+ ipegs    =           0     #  Delete all PEGS5 output files when PHITS calculation is finished. Some files remain when the user self-terminates the PHITS calculation
+
+
+[ S o u r c e ] 
+   s-type = 26              # mono-energetic axial source
+      suf = 56
+      cut = -57
+     proj = neutron         # kind of incident nucleus          
+       e0 =  c72            # energy of beam [MeV/u]
+      dir =   1.0           # z-direction of beam [cosine]
+      dom =   0.0
+      phi =   all
+
+
+[ M a t e r i a l ]
+$ Source: Table 4.4. in Report 44 of Journal of the International Commission on Radiation Units and Measurements , Volume 23 (1) – Jan 15, 1989
+
+mat[1]                                                      $Air, Dry (near sea level)
+            C         -0.000124 
+            N         -1.0
+            O         -0.231781
+            Ar        -0.012827                           
+
+mat[2]                                                      $Skin (ICRU-44)
+            H        -0.10
+            C        -0.204
+            N        -0.042
+            O        -0.645
+            Na       -0.002
+            P        -0.001
+            S        -0.002
+            Cl       -0.003
+            K        -0.001
+
+mat[3]                                                      $Skeleton, Spongiosa (33 cortical, 67 marrow (50 red 50 yellow) (ICRU-44) 
+            H        -0.085
+            C        -0.404
+            N        -0.028
+            O        -0.367
+            Na       -0.001
+            Mg       -0.001
+            P        -0.034
+            S        -0.002
+            Cl       -0.002
+            K        -0.001
+            Ca       -0.074
+            Fe       -0.001
+
+    
+mat[4]                                                      $Water, Liquid
+            H       -0.111898
+            O       -0.888102
+
+mat[5]                                                      $Brain, Grey/White Matter (50:50) (ICRU-44)
+            H        -0.107
+            C        -0.145
+            N        -0.022
+            O        -0.712
+            Na       -0.002
+            P        -0.004
+            S        -0.002
+            Cl       -0.003
+            K        -0.003
+
+
+mat[6]                                                      $Tumor 
+            H        -0.107                                 
+            C        -0.145
+            N        -0.022
+            O        -0.712
+            Na       -0.002
+            P        -0.004
+            S        -0.002
+            Cl       -0.003
+            K        -0.003
+           10B       -1.147E-2                             
+
+mat[7]                                                      $Muscle, Skeletal (ICRU-44) 
+            H        -0.102
+            C        -0.143
+            N        -0.034
+            O        -0.71
+            Na       -0.001
+            P        -0.002
+            S        -0.003
+            Cl       -0.001
+            K        -0.004
+
+
+mat[8]                                                      $Muscle, Striated (ICRU-44) - adnotes
+            H        -0.102
+            C        -0.123
+            N        -0.031
+            O        -0.729
+            Na       -0.001
+            P        -0.002
+            S        -0.003
+            Cl       -0.001
+            K        -0.004
+
+
+mat[9]                                                      $Adipose Tissue (ICRU-44)
+            H        -0.114000
+            C        -0.598000
+            N        -0.007000
+            O        -0.278000
+            Na       -0.001000
+            S        -0.001000
+            Cl       -0.001000
+
+
+mat[10]                                                     $Water, Liquid
+            H       -0.111898
+            O       -0.888102
+mt10   lwtr.20t
+
+
+mat[11]                                                     $Lanthanum (III) bromide                                                 
+            57138    0.25
+            35079    0.75
+
+mat[12]                                                     $Aluminium coverage                                                 
+            Al      -1.0
+           
+Mat[2001]     H  1.0  
+Mat[2002]     N  1.0  
+Mat[2003]   10B  1.0  
+
+[ Mat Name Color ]
+    mat   name                   color
+     1    Air                    white
+     2    Skin                   pastelpink
+     3    Skeleton               gray
+     4    CSF                    pastelblue
+     5    Brain\,tissue          pink
+     6    Tumor\,+\,\{^1^0\}B    darkred
+     7    Skeletal\,muscles      red
+     8    Smooth\,muscles        winered
+     9    Adipose\,tissue        {0.867}  
+     10   Eyes                   yellow
+     11   \{Detector\}           pastelcyan
+     12   Detector\,covering     gray
+
+
+[ S u r f a c e ]
+$   Source: https://phits.jaea.go.jp/manual/manualE-phits.pdf?
+$$$        THICKNESS OF FACIAL STRUCTURES:       $$$ 
+$   c8 - bone, c15 - skeletal,  c22 - fat, c29 - skin, c2 - smooth muscles;
+set: c8[.75] c15[0.4] c22[0.25] c29[0.15]  
+
+set: c2[4.00] c3[-14.00] c4[1.49] c5[-7.5] c6[5.0] c7[7.5] c9[c2+c8] c10[c3] c11[c4-2*c8] c12[c5-2*c8] c13[c6+10*c8] c14[c7+4*c8] 
+set: c16[c9+c15] c17[c10-c15] c18[c11-c15] c19[c12-2*c15] c20[c13+2*c15] c21[c14+2*c15] c23[c16+c22] c24[c17-c22] c25[c18-c22] c26[c19-2*c22] c27[c20+2*c22] c28[c21+2*c22] c30[c23+c29]
+set: c31[c24-c29] c32[c25-c29] c33[c26-2*c29] c34[c27+2*c29] c35[c28+2*c29] 
+
+
+$$$        THICKNESS OF NECK STRUCTURES:       $$$
+$   c36 - nervous tissue, c37 - CSF,  c39 - bone, c41 - skeletal muscles, c43 - fat, c45 - skin;
+set: c36[0.5] c37[0.25] c39[0.5] c41[2.5] c43[1.00] c45[0.25] 
+
+set: c38[c36+c37] c40[c38+c39] c42[c40+c41] c44[c42+c43] c46[c44+c45] c70[22.0] c71[c70-c37] 
+
+
+$$$        EYES:       $$$
+$   c47 - x, c51 - y, c49 - z;
+set: c47[2.5] c48[-4.0] c49[10.2] 
+
+
+$$$        NOSE:       $$$
+$   skin: 
+$   c50 - z_min, c52 - z_max, c51 - y_max, c53 - y_min;
+set: c50[c32+c35] c51[c48+0.5] c52[c50+2.0] c53[c51-4.5]
+$   fat: 
+$   c54 - z_min, c55 - z_max, c55 - y_max, c57 - y_min;
+set: c54[c50-c29] c55[c51-1.9*c29] c56[c52-c29] c57[c53+c29]
+
+
+$$$        TUMOR RELATED:       $$$
+$   tumor: 
+$   c66 - r ; c59 - z; c69 - y; c68 - x (this is a dummy parameter for controlling the rotation of the detector)
+set: c66[1] c59[0.0] c68[-5.8] c69[0.0]
+$ detector:
+$   LaBr3: 
+$   y - c58, z - c59, x - c60, r - c61, vec(x) - c67; 
+set: c58[0.0] c60[-18.0] c61[2.56] c67[2*c61]
+$   Al: 
+$   x0- c64, vec(x) - c65 r - c63, thickness - c62;
+set:   c62[0.5] c63[c61+c62] c64[c60-c62] c65[c67+2*c62] 
+
+
+$$$        PARAMETER MATH       $$$
+set: c76[-4.01193] c77[20.99587] c78[-20.14898] c79[23.11667] c80[-11.86446] c81[22.05627] c82[-16.99166] c83[22.71902]
+set: c75[c76-c84*c77] c85[c78-c84*c79] c86[c80-c84*c81] c87[c82-c84*c83] 
+
+
+    
+ 11   sq    1.35 1.3 0.8 5.999999999999999 2.5 5.0 c85 4.35 1.9 6.2                           $h_s 
+ 12   sq    1.35 1.3 0.8 5.999999999999999 2.5 5.0 c75 4.35 1.9 6.2                           $h_b
+ 13   sq    1.35 1.3 0.8 5.999999999999999 2.5 5.0 -4.581735276400167 4.35 1.9 6.2            $h_d 
+ 14   sq    1.35   1.30   0.80  6.00   2.50    5.00   0.10  4.35    1.90   6.20               $h_n
+ 15    s    c74    c69    c59   c66                                                           $h_t
+ 16   so   30.                                                                                $air
+ 17   rcc   0.00 -30.00   0.00   0.00  30.00   0.00   c42                                     $n_sk
+ 18   rcc   0.00 -30.00   0.00   0.00  30.00   0.00   c46                                     $n_s
+ 19   box   c9 c10 c11 c12 0.0 0.0 0.0 c13 0.0 0.0 0.0 c14                                    $f_b_1
+ 20   box   c30 c31 c32 c33 0.0 0.0 0.0 c34 0.0 0.0 0.0 c35                                   $f_s                                           
+ 21   rcc   0.00 -30.00  -1.00   0.00  30.00   0.00   c40                                     $n_b                  https://www.researchgate.net/figure/Mean-Cervical-Spine-Transverse-Foraminal-Dimensions-mm_tbl1_44576050
+ 22   rcc   0.00 -30.00  -1.00   0.00  26.00   0.00   c36                                     $n_n                  https://www.scielo.cl/pdf/ijmorphol/v32n4/art08.pdf
+ 23   rcc   0.00 -30.00   1.3    0.00  21.00   0.00   1.00                                    $n_sm
+ 24   box   c2 c3 c4 c5 0.0 0.0 0.0 c6 0.0 0.0 0.0 c7                                         $f_sm_1
+ 26   sq    1.35 1.3 0.8 5.999999999999999 2.5 5.0 c86 4.35 1.9 6.2                           $h_sk   
+ 28   sq    1.35 1.3 0.8 5.999999999999999 2.5 5.0 c87 4.35 1.9 6.2                           $h_f
+ 29   rcc   0.00 -30.00   0.00   0.00  30.00   0.00   c44                                     $n_f  
+ 30   box   c23 c24 c25 c26 0.0 0.0 0.0 c27 0.0 0.0 0.0 c28                                   $f_f
+ 31   box   c16 c17 c18 c19 0.0 0.0 0.0 c20 0.0 0.0 0.0 c21                                   $f_sk
+ 32   rcc   0.00 -30.00  -1.00   0.00  30.00   0.00   c38                                     $n_d 
+ 33    s   -c47 c55 c49   1.2                                                                 $f_e_1
+ 34    s    c47 c55 c49   1.2                                                                 $f_e_2
+ 36   box  -5.0 -3.0 0.0 10.0 0.0 0.0 0.0 -4.0 0.0 0.0 0.0 8.0                                $f_n_2
+ 38    s    0.0 -24.0 13.0 c70                                                                $h_d_2
+ 39    s    0.0 -24.0 13.0 c71                                                                $h_d_3
+ 40    s    0.0 -24.0 13.0 18.841                                                             $f_sm_3
+ 41   box   c9  -4.0 10.0 c12 0.0 0.0 0.0 -1.0 0.0 0.0 0.0 -9.0                               $f_b_2
+ 42    s    0.0 -2.8 9.5 0.6                                                                  $zatoki czołowe 
+ 43    s    0.0 -24.0 13.0 17.0                                                               $f_sm_4
+ 44    P    1.3 c53 c50 -1.3 c53 c50 0 c53 c52                                                $nose_base
+ 45    P    0 c51 c50 1.3 c53 c50 0 c53 c52                                                   $nose_xpos
+ 46    P    0 c51 c50 -1.3 c53 c50 0 c53 c52                                                  $nose_xneg
+ 47    P    0 c51 c50 -1.3 c53 c50 1.3 c53 c50                                                $nose z_min
+ 48    P    1. c57 c54 -1. c57 c54 0 c57 c56                                                  $nose_base
+ 49    P    0 c55 c54 1.0 c57 c54 0 c57 c56                                                   $nose_xpos
+ 50    P    0 c55 c54 -1. c57 c54 0 c57 c56                                                   $nose_xneg
+ 51    P    0 c55 c54 -1. c57 c54 1. c57 c54                                                  $nose z_min
+ 52   box   -2.0 -8.7 2.8 4.0 0.0 0.0 0.0 3.4  0.0 0.0 0.0 7.3                                $f_sk
+ 53    s    0.0 -2.5 -1.0 1.5                                                                 $f_sm_4
+ 54   rcc   c60 c58 c59 c67 0.0 0.0 c61                                                       $detector - lithium
+ 55   rcc   c64 c58 c59 c65 0.0 0.0 c63                                                       $detector - aluminium
+ 56   PX    c73                                                                               $plane on which the source is placed
+ 57   C/X   0.0 0.0 2.0                                                                       $circle, which is the cut-out for the source
+
+[ C e l l ]
+ 111     2 -1.090      28 29 30 42 (-11 : (-18 #100) : ((33 34) -20 #112 #118) : ((-45 -46 -44 47) #118))        $skin
+ 112     3 -1.180      32 33 34 42 52 ((13 23 24 -12 #117) : (13 23 24 -19 #117) : (13 -21) : (-13 -39)) #100    $bone
+ 113     4 -1.00       22 ((14 39 -13) : (14 -32 #100) : (52 -38 -14 #112) : -53)                                $dura&CSF
+ 114     5 -1.04       15 53 ((38 -14) : -22) #100                                                               $nervous tissue
+ 115     6 -1.04      -15                                                                                        $tumor (at 1 mln ppm densities are: boron - 2,5, Gd - 7,9,  Li - 0,5)
+ 116     7 -1.050      12 19 21 23 24 (33 34) (-17 : -26 : (-31 #112)) #100                                      $skeletal muscles
+ 117     8 -1.050    (-23 : (41 -24)) #100                                                                       $smooth muscles
+ 118     9 -0.950      17 19 26 31 33 34 42 (-28 : -29 : (-30 #112) : (-49 -50 -48 51)) #100                     $fat/ adipose tissue
+ 119    10 -1.00     (-33 : -34)                                                                                 $eyes
+ 101     1 -0.001205   11 18 20 32 (33 34) #122 #121 #111 #118 #117 #116 #115 #114 #113 #112 #111 -16            $air surrounding the phantom
+ 120     1 -0.001205  -42 : -52                                                                                  $air inside cavities
+ 121    11 -5.06      -54               trcl=1                                                                   $detector (lanthanum bromide)
+ 122    12 -2.71      #121 -55          trcl=1                                                                   $detector covering (aluminum)
+ 100    -1             16                                                                                        $void (empty space surrounding the bubble of air, in which the phantom is placed)
+
+[ Transform ]
+*tr1  0.0 0.0 0.0  c68 c69 c59  0.0 0.0  2 -45  3 -45 3
+
+[ V o l u m e ]
+    reg      vol      
+    111      3.0335E+02 
+    112      1.2111E+03  
+    113      2.2475E+02 
+    114      1.6722E+03 
+    115      4.2599E+00 
+    116      9.2970E+02 
+    117      3.1633E+02
+    118      6.3870E+02
+    119      1.4522E+01
+    101      1.6179E+04 
+    120      9.9870E+01 
+    121      1.0550E+02
+    122      7.4608E+01
+
+
+[t-track] %switch%
+    title = Neutron flux in xz mesh.
+     mesh = xyz
+   x-type =    2            # x-mesh is linear given bx xmin, xmax and nx
+     xmin = -20.000000      # minimum value of x-mesh points
+     xmax =  18.000000      # maximum value of x-mesh points
+       nx =   c1            # number of x-mesh points
+   y-type =    2            # y-mesh is linear given by ymin, ymax and ny
+     ymin = -20.000000      # minimum value of y-mesh points
+     ymax =  20.000000      # maximum value of y-mes    h points
+       ny =    1            # number of y-mes       h points
+   z-type =    2            # z-mesh is linear given by zmin, zmax and nz
+     zmin =  -15.000000     # minimum value of z-mesh points
+     zmax =   15.000000     # maximum value of z-mesh points
+       nz =   c1            # number of z-mesh points
+     axis =   xz            # axis of output
+     file = brain_xz.out    # file name of output for the above axis
+   e-type =    1            # e-mesh is given by the below data
+       ne =    1            # number of e-mesh points
+             0.0  1000.0
+     part = neutron 
+     unit =    1            # unit is [1/cm^2/source]
+    gshow =    1
+   epsout =    1
+
+
+[t-track] %switch%
+    title = Neutron flux in yz mesh.
+     mesh = xyz
+   x-type =    2            # x-mesh is linear given bx xmin, xmax and nx
+     xmin = -11.600000      # minimum value of x-mesh points
+     xmax =  10.000000      # maximum value of x-mesh points
+       nx =    1            # number of x-mesh points
+   y-type =    2            # y-mesh is linear given by ymin, ymax and ny
+     ymin = -25.000000      # minimum value of y-mesh points
+     ymax =  20.000000      # maximum value of y-mesh points
+       ny =   c1            # number of y-mesh points
+   z-type =    2            # z-mesh is linear given by zmin, zmax and nz
+     zmin =  -13.00000      # minimum value of z-mesh points
+     zmax =   15.00000      # maximum value of z-mesh points
+       nz =   c1            # number of z-mesh points
+     axis =   yz            # axis of output
+     file = brain_yz.out    # file name of output for the above axis
+   e-type =    1            # e-mesh is given by the below data
+       ne =    1            # number of e-mesh points
+             0.0  1000.0
+     part = neutron 
+     unit =    1            # unit is [1/cm^2/source]
+    gshow =    1
+   epsout =    1
+
+[t-track] %switch%
+    title = Neutron flux in yz mesh (through eyes).
+     mesh = xyz
+   x-type =    2            # x-mesh is linear given bx xmin, xmax and nx
+     xmin = -5.000000      # minimum value of x-mesh points
+     xmax =  0.000000      # maximum value of x-mesh points
+       nx =    1            # number of x-mesh points
+   y-type =    2            # y-mesh is linear given by ymin, ymax and ny
+     ymin = -25.000000      # minimum value of y-mesh points
+     ymax =  20.000000      # maximum value of y-mesh points
+       ny =   c1            # number of y-mesh points
+   z-type =    2            # z-mesh is linear given by zmin, zmax and nz
+     zmin =  -13.00000      # minimum value of z-mesh points
+     zmax =   15.00000      # maximum value of z-mesh points
+       nz =   c1            # number of z-mesh points
+     axis =   yz            # axis of output
+     file = brain_yz_eyes.out    # file name of output for the above axis
+   e-type =    1            # e-mesh is given by the below data
+       ne =    1            # number of e-mesh points
+             0.0  1000.0
+     part = neutron 
+     unit =    1            # unit is [1/cm^2/source]
+    gshow =    1
+   epsout =    1
+
+[t-track] %switch%
+    title = Neutron flux in xy mesh.
+     mesh = xyz
+   x-type =    2            # x-mesh is linear given bx xmin, xmax and nx
+     xmin = -25.000000      # minimum value of x-mesh points
+     xmax =  25.000000      # maximum value of x-mesh points
+       nx =   c1            # number of x-mesh points
+   y-type =    2            # y-mesh is linear given by ymin, ymax and ny
+     ymin = -25.000000      # minimum value of y-mesh points
+     ymax =  25.000000      # maximum value of y-mesh points
+       ny =   c1            # number of y-mesh points
+   z-type =    2            # z-mesh is linear given by zmin, zmax and nz
+     zmin =  -17.00000      # minimum value of z-mesh points
+     zmax =   17.00000      # maximum value of z-mesh points
+       nz =    1            # number of z-mesh points
+     axis =   xy            # axis of output
+     file = brain_xy.out    # file name of output for the above axis
+   e-type =    1            # e-mesh is given by the below data
+       ne =    1            # number of e-mesh points
+             0.0  1000.0
+     part = neutron 
+     unit =    1            # unit is [1/cm^2/source]
+    gshow =    1
+   epsout =    1
+
+
+
+[t-track] %switch%
+    title = Neutron flux in a box (1cmx1cm) along x-axis.
+     mesh = xyz
+   x-type =    2            # x-mesh is linear given bx xmin, xmax and nx
+     xmin = -8.80000      # minimum value of x-mesh points
+     xmax =  8.65000      # maximum value of x-mesh points
+       nx =   c1            # number of x-mesh points
+   y-type =    2            # y-mesh is linear given by ymin, ymax and ny
+     ymin = -1.000000       # minimum value of y-mesh points
+     ymax =  1.000000       # maximum value of y-mes    h points
+       ny =    1            # number of y-mesh points
+   z-type =    2            # z-mesh is linear given by zmin, zmax and nz
+     zmin =  -1.000000      # minimum value of z-mesh points
+     zmax =   1.000000      # maximum value of z-mesh points
+       nz =    1            # number of z-mesh points
+     axis =   xz            #  axis of output
+     file = neutron_flux_xz.out      
+   e-type =    1            # e-mesh is given by the below data
+       ne =    1            # number of e-mesh points
+             0.0  1000.0
+     part = neutron 
+     unit =    1            # unit is [1/cm^2/source]
+    gshow =    1
+   epsout =    1    
+
+################################## DOSE TALLIES ########################################
+[t-deposit] %switch2%
+    title =  Energy deposition in yz mesh.
+     mesh = xyz
+   x-type =    2            # x-mesh is linear given bx xmin, xmax and nx
+     xmin = -15.000000      # minimum value of x-mesh points
+     xmax =  15.000000      # maximum value of x-mesh points
+       nx =    1            # number of x-mesh points
+   y-type =    2            # y-mesh is linear given by ymin, ymax and ny
+     ymin = -25.000000      # minimum value of y-mesh points
+     ymax =  10.000000      # maximum value of y-mesh points
+       ny =   c1            # number of y-mesh points
+   z-type =    2            # z-mesh is linear given by zmin, zmax and nz
+     zmin =  -13.00000      # minimum value of z-mesh points
+     zmax =   15.00000      # maximum value of z-mesh points
+       nz =   c1            # number of z-mesh points
+     axis =   yz            # axis of output
+     file =  dose_yz.out    # file name of output for the above axis
+     part =  all photon proton (alpha 7Li)
+     unit =  0              # unit is [Gy/source]
+   output =  dose
+   epsout =  1
+
+[t-deposit] %switch2%
+    title =  Energy deposition in xy mesh.
+   mesh = xyz
+   x-type =    2            # x-mesh is linear given bx xmin, xmax and nx
+     xmin = -11.000000      # minimum value of x-mesh points
+     xmax =  18.000000      # maximum value of x-mesh points
+       nx =   c1            # number of x-mesh points
+   y-type =    2            # y-mesh is linear given by ymin, ymax and ny
+     ymin = -25.00000       # minimum value of y-mesh points
+     ymax =  10.000000      # maximum value of y-mesh points
+       ny =   c1            # number of y-mesh points
+   z-type =    2            # z-mesh is linear given by zmin, zmax and nz
+     zmin =  -17.00000      # minimum value of z-mesh points
+     zmax =   15.00000      # maximum value of z-mesh points
+       nz =    1            # number of z-mesh points
+     axis =   xy            # axis of output
+     file =  dose_xy.out    # file name of output for the above axis
+     part =  all photon proton (alpha 7Li)
+     unit =  0              # unit is [Gy/source]
+   output =  dose
+   epsout =  1
+
+[t-deposit] %switch2%
+    title =  Energy deposition in xz mesh.
+     mesh = xyz
+   x-type =    2            # x-mesh is linear given bx xmin, xmax and nx
+     xmin = -11.000000      # minimum value of x-mesh points
+     xmax =  18.000000      # maximum value of x-mesh points
+       nx =   c1            # number of x-mesh points
+   y-type =    2            # y-mesh is linear given by ymin, ymax and ny
+     ymin = -20.000000      # minimum value of y-mesh points
+     ymax =  20.000000      # maximum value of y-mes    h points
+       ny =    1            # number of y-mes       h points
+   z-type =    2            # z-mesh is linear given by zmin, zmax and nz
+     zmin =  -15.000000     # minimum value of z-mesh points
+     zmax =   15.000000     # maximum value of z-mesh points
+       nz =   c1            # number of z-mesh points
+     axis =   xz            # axis of output
+     file =  dose_xz.out    # file name of output for the above axis
+     part =  all photon proton (alpha 7Li)
+     unit =  0              # unit is [Gy/source]
+   output =  dose
+   epsout =  1
+
+[t-deposit] %switch2%
+    title =  Energy deposition in a box (1cmx1cm) along x-axis.
+     mesh = xyz
+   x-type =    2            # x-mesh is linear given bx xmin, xmax and nx
+     xmin = -8.2800      # minimum value of x-mesh points
+     xmax =  15.000000      # maximum value of x-mesh points
+       nx =   c1            # number of x-mesh points
+   y-type =    2            # y-mesh is linear given by ymin, ymax and ny
+     ymin = -1.000000       # minimum value of y-mesh points
+     ymax =  1.000000       # maximum value of y-mesh points
+       ny =    1            # number of y-mesh points
+   z-type =    2            # z-mesh is linear given by zmin, zmax and nz
+     zmin =  -1.000000      # minimum value of z-mesh points
+     zmax =   1.000000      # maximum value of z-mesh points
+       nz =    1            # number of z-mesh points
+     axis =   xz            #  axis of output
+     file =  dose_xz_summed.out    # file name of output for the above axis
+     part =  all photon proton (alpha 7Li)
+     unit =  0              # unit is [Gy/source]
+   output =  dose
+   epsout =  1
+
+$ the results are for skin, bone, csf&dura, nervous tissue, the tumor, skeletal, smooth muscle, fat, eyes, air inside cavities
+[t-deposit] %switch2%
+    title =  General energy deposition for respective tissues.
+     mesh =  reg
+      reg =  111 112 113 114 115 116 117 118 119 120
+     axis =  reg            # axis of output
+     file =  dose_reg.out   # file name of output for the above axis
+     part =  all photon proton (alpha 7Li)
+     unit =  0              # unit is [Gy/source]
+   output =  dose
+   epsout =  1
+
+
+################################## HNB DOSES ###########################################
+[t-track] %switch3%
+    title = Hydrogen (1) Nitrogen (2) Boron (3) along z-axis.
+     mesh =  xyz
+   x-type =    2            # x-mesh is linear given bx xmin, xmax and nx
+     xmin = -11.000000      # minimum value of x-mesh points
+     xmax =  18.000000      # maximum value of x-mesh points
+       nx =   1             # number of x-mesh points
+   y-type =    2            # y-mesh is linear given by ymin, ymax and ny
+     ymin = -25.000000      # minimum value of y-mesh points
+     ymax =  10.000000      # maximum value of y-mesh points
+       ny =   1             # number of y-mesh points
+   z-type =    2            # z-mesh is linear given by zmin, zmax and nz
+     zmin =  -13.00000      # minimum value of z-mesh points
+     zmax =   15.00000      # maximum value of z-mesh points
+       nz =   c1            # number of z-mesh points
+     axis =  z              # axis of output
+    e-type = 1              # e-mesh is given by the below data
+        ne = 1              # number of e-mesh points
+             0.0  1000.0
+      file = hnb_z.out      # file name of output for the above axis
+    epsout = 1
+     angel = ymin(1.0e-18) ymax(1.0e-12)
+     y-txt = Flux [MeV/cm^3/source]
+      unit = 1              # unit is [1/cm^2/source]
+multiplier = all 
+     part  = neutron
+     emax  = 2.000e+01
+      mat        mset1                    mset2                   mset3
+      all (9.6681e-012 2001 1 -4) (1.7910e-013 2002 1 -4) (9.6472e-17 2003 1 -4)
+
+[t-track] %switch3%
+    title = Hydrogen (1) Nitrogen (2) Boron (3) along y-axis.
+     mesh =  xyz
+   x-type =    2            # x-mesh is linear given bx xmin, xmax and nx
+     xmin = -11.000000      # minimum value of x-mesh points
+     xmax =  18.000000      # maximum value of x-mesh points
+       nx =   1             # number of x-mesh points
+   y-type =    2            # y-mesh is linear given by ymin, ymax and ny
+     ymin = -30.000000      # minimum value of y-mesh points
+     ymax =  10.000000      # maximum value of y-mesh points
+       ny =   c1            # number of y-mesh points
+   z-type =    2            # z-mesh is linear given by zmin, zmax and nz
+     zmin =  -13.00000      # minimum value of z-mesh points
+     zmax =   15.00000      # maximum value of z-mesh points
+       nz =   1             # number of z-mesh points
+     axis =  y              # axis of output
+    e-type = 1              # e-mesh is given by the below data
+        ne = 1              # number of e-mesh points
+             0.0  1000.0
+      file = hnb_y.out      # file name of output for the above axis
+    epsout = 1
+     angel = ymin(1.0e-18) ymax(1.0e-12)
+     y-txt = Flux [MeV/cm^3/source]
+      unit = 1              # unit is [1/cm^2/source]
+multiplier = all 
+     part  = neutron
+     emax  = 2.000e+01
+      mat        mset1                    mset2                   mset3
+      all (9.6681e-012 2001 1 -4) (1.7910e-013 2002 1 -4) (9.6472e-17 2003 1 -4)
+
+[t-track] %switch3%
+    title = Hydrogen (1) Nitrogen (2) Boron (3) along x-axis.
+     mesh =  xyz
+   x-type =    2            # x-mesh is linear given bx xmin, xmax and nx
+     xmin = -11.000000      # minimum value of x-mesh points
+     xmax =  20.000000      # maximum value of x-mesh points
+       nx =   c1            # number of x-mesh points
+   y-type =    2            # y-mesh is linear given by ymin, ymax and ny
+     ymin = -25.000000      # minimum value of y-mesh points
+     ymax =  10.000000      # maximum value of y-mesh points
+       ny =    1            # number of y-mesh points
+   z-type =    2            # z-mesh is linear given by zmin, zmax and nz
+     zmin =  -13.00000      # minimum value of z-mesh points
+     zmax =   15.00000      # maximum value of z-mesh points
+       nz =    1            # number of z-mesh points
+     axis =  x              # axis of output
+    e-type = 1              # e-mesh is given by the below data
+        ne = 1              # number of e-mesh points
+             0.0  1000.0
+      file = hnb_x.out      # file name of output for the above axis
+    epsout = 1
+     angel = ymin(1.0e-18) ymax(1.0e-12)
+     y-txt = Flux [MeV/cm^3/source]
+      unit = 1              # unit is [1/cm^2/source]
+multiplier = all 
+     part  = neutron
+     emax  = 2.000e+01
+      mat        mset1                    mset2                   mset3
+      all (9.6681e-012 2001 1 -4) (1.7910e-013 2002 1 -4) (9.6472e-17 2003 1 -4)
+
+################################# DETECTOR TALLIES #####################################
+[t-deposit] %switch4%
+    title = Unbroadened Energy Deposition.
+     mesh = reg
+      reg = 121
+     unit = 3               # unit is [1/source] 
+   output = deposit         # total deposit energy
+     axis = eng             # axis of output
+   e-type = 2               # e-mesh is given by the below data
+       ne = 1000             # number of e-mesh points
+     emin = 0.0
+     emax = 2.5
+   y-txt  = Counts [1/source]      
+     file = detector_dep.out    
+     part = all          
+   epsout = 1
+
+
+[ T-Deposit ] %switch4%
+    title = Energy Deposition with Gaussian smearing
+     mesh =    reg          # mesh type is region-wise
+      reg =    121
+     unit =    3            # unit is [1/source] : only for output=deposit
+   letmat =    0            # (D=0) material id for LET, 0: real material
+  dedxfnc =    1            # (D=0) user defined multiplier, 0(no), 1, 2
+ material =   all           # (D=all) number of specific material
+   output =   deposit       # deposit enerygy distribution
+   e-type =   2             # e-mesh is linear given by emin, emax and ne
+     emin =   0.00000       # minimum value of e-mesh points
+     emax =   2.50000       # maximum value of e-mesh points
+       ne =   1000           # number of e-mesh points
+     axis =   eng           # axis of outputP
+     file =   detector_gaus.out     # file name of output for the above axis
+     part =   all      
+   y-txt  =  Counts [1/source]      
+   epsout =   1             # (D=0) generate eps file by ANGEL
+   dresol =  0.003          # (D=0) ; width = sqrt(dresol**2 + dfano*E) 
+    dfano =  0.0001         # (D=0) width = sqrt(dresol**2 + dfano*E); https://www.berkeleynucleonics.com/lanthanum-bromide/ resolution = 3%
+
+[ T-Deposit ] %switch4.1%
+    title = Energy Deposition with custom Gaussian smearing
+     mesh =    reg          # mesh type is region-wise
+      reg =    121
+     unit =    3            # unit is [1/source] : only for output=deposit
+   letmat =    0            # (D=0) material id for LET, 0: real material
+  dedxfnc =    1            # (D=0) user defined multiplier, 0(no), 1, 2
+ material =   all           # (D=all) number of specific material
+   output =   deposit       # deposit enerygy distribution
+   e-type =   2             # e-mesh is linear given by emin, emax and ne
+     emin =   0.00000       # minimum value of e-mesh points
+     emax =   2.50000       # maximum value of e-mesh points
+       ne =   1000          # number of e-mesh points
+     axis =   eng           # axis of output
+     file =   detector_gaus_mod.out     # file name of output for the above axis
+     part =   all      
+   y-txt  =  Counts [1/source]      
+   epsout =     1             # (D=0) generate eps file by ANGEL
+   dresol =    -1.0          # (D=0) ; width = sqrt(dresol**2 + dfano*E); https://www.berkeleynucleonics.com/lanthanum-bromide/ resolution = 3% 
+
+################################# TUMOR TALLIES ########################################
+[t-track] %switch5%
+    title = Hydrogen (1) Nitrogen (2) Boron (3) - Tumor
+     mesh = reg
+      reg = 115
+    e-type = 1              # e-mesh is given by the below data
+        ne = 1              # number of e-mesh points
+             0.0  1000.0
+      axis = reg            # axis of output
+      file = hnb_t.out      # file name of output for the above axis
+    epsout = 1
+     angel = ymin(1.0e-18) ymax(1.0e-12)
+     y-txt = Dose [Gy/source]
+      unit = 1              # unit is [1/cm^2/source]
+multiplier = all 
+     part  = neutron
+     emax  = 2.000e+01
+      mat        mset1                    mset2                   mset3
+      all (9.6681e-012 2001 1 -4) (1.7910e-013 2002 1 -4) (9.6472e-17 2003 1 -4)
+
+[t-deposit] %switch5%
+    title =  General energy deposition the tumor.
+     mesh =  reg
+      reg =  115
+    volume                  # combined, lattice or level structure 
+    non     reg      vol    # reg definition
+    1       115     (4/3)*pi*c66**3
+     axis =  reg            # axis of output
+     file =  dose_t.out   # file name of output for the above axis
+     part =  all photon proton (alpha 7Li)
+     unit =  0              # unit is [Gy/source]
+   output =  dose
+   epsout =  1
+
+[t-track] %switch5%
+    title = Energy spectrum of neutrons in the tumor.
+     mesh = reg
+      reg = 115
+     unit = 2               # unit is [1/source] 
+     axis = eng             # axis of output
+   e-type = 2               # e-mesh is given by the below data
+       ne = 100             # number of e-mesh points
+     emin = 0
+     emax = c72
+     file = tumor_spectrum.out  
+     part = neutron          
+    gshow = 1
+   epsout = 1
+
+
+[END]
+

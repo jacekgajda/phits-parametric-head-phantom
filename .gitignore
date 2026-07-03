@@ -1,0 +1,29 @@
+# PHITS generated outputs
+*.out
+*.eps
+*.ang
+*.trk
+*.track
+*.dump
+*.vtk
+
+# Large result folders
+results/
+output/
+outputs/
+raw/
+raw_results/
+spectra/
+dose/
+iter_iter/
+spectra_dose_proper/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.ipynb_checkpoints/
+
+# Windows
+Thumbs.db
+Desktop.ini
