@@ -241,35 +241,35 @@ set: c75[c76-c84*c77] c85[c78-c84*c79] c86[c80-c84*c81] c87[c82-c84*c83]
 
 
     
- 11   sq    1.35 1.3 0.8 5.999999999999999 2.5 5.0 c85 4.35 1.9 6.2                           $h_s 
- 12   sq    1.35 1.3 0.8 5.999999999999999 2.5 5.0 c75 4.35 1.9 6.2                           $h_b
- 13   sq    1.35 1.3 0.8 5.999999999999999 2.5 5.0 -4.581735276400167 4.35 1.9 6.2            $h_d 
- 14   sq    1.35   1.30   0.80  6.00   2.50    5.00   0.10  4.35    1.90   6.20               $h_n
- 15    s    c74    c69    c59   c66                                                           $h_t
- 16   so   30.                                                                                $air
- 17   rcc   0.00 -30.00   0.00   0.00  30.00   0.00   c42                                     $n_sk
- 18   rcc   0.00 -30.00   0.00   0.00  30.00   0.00   c46                                     $n_s
- 19   box   c9 c10 c11 c12 0.0 0.0 0.0 c13 0.0 0.0 0.0 c14                                    $f_b_1
- 20   box   c30 c31 c32 c33 0.0 0.0 0.0 c34 0.0 0.0 0.0 c35                                   $f_s                                           
- 21   rcc   0.00 -30.00  -1.00   0.00  30.00   0.00   c40                                     $n_b                  https://www.researchgate.net/figure/Mean-Cervical-Spine-Transverse-Foraminal-Dimensions-mm_tbl1_44576050
- 22   rcc   0.00 -30.00  -1.00   0.00  26.00   0.00   c36                                     $n_n                  https://www.scielo.cl/pdf/ijmorphol/v32n4/art08.pdf
- 23   rcc   0.00 -30.00   1.3    0.00  21.00   0.00   1.00                                    $n_sm
- 24   box   c2 c3 c4 c5 0.0 0.0 0.0 c6 0.0 0.0 0.0 c7                                         $f_sm_1
- 26   sq    1.35 1.3 0.8 5.999999999999999 2.5 5.0 c86 4.35 1.9 6.2                           $h_sk   
- 28   sq    1.35 1.3 0.8 5.999999999999999 2.5 5.0 c87 4.35 1.9 6.2                           $h_f
- 29   rcc   0.00 -30.00   0.00   0.00  30.00   0.00   c44                                     $n_f  
- 30   box   c23 c24 c25 c26 0.0 0.0 0.0 c27 0.0 0.0 0.0 c28                                   $f_f
- 31   box   c16 c17 c18 c19 0.0 0.0 0.0 c20 0.0 0.0 0.0 c21                                   $f_sk
- 32   rcc   0.00 -30.00  -1.00   0.00  30.00   0.00   c38                                     $n_d 
- 33    s   -c47 c55 c49   1.2                                                                 $f_e_1
- 34    s    c47 c55 c49   1.2                                                                 $f_e_2
- 36   box  -5.0 -3.0 0.0 10.0 0.0 0.0 0.0 -4.0 0.0 0.0 0.0 8.0                                $f_n_2
- 38    s    0.0 -24.0 13.0 c70                                                                $h_d_2
- 39    s    0.0 -24.0 13.0 c71                                                                $h_d_3
- 40    s    0.0 -24.0 13.0 18.841                                                             $f_sm_3
- 41   box   c9  -4.0 10.0 c12 0.0 0.0 0.0 -1.0 0.0 0.0 0.0 -9.0                               $f_b_2
- 42    s    0.0 -2.8 9.5 0.6                                                                  $zatoki czołowe 
- 43    s    0.0 -24.0 13.0 17.0                                                               $f_sm_4
+ 11   sq    1.35 1.3 0.8 5.999999999999999 2.5 5.0 c85 4.35 1.9 6.2                           $head skin 
+ 12   sq    1.35 1.3 0.8 5.999999999999999 2.5 5.0 c75 4.35 1.9 6.2                           $head bone
+ 13   sq    1.35 1.3 0.8 5.999999999999999 2.5 5.0 -4.581735276400167 4.35 1.9 6.2            $head dura&csf 
+ 14   sq    1.35   1.30   0.80  6.00   2.50    5.00   0.10  4.35    1.90   6.20               $head nervous tissue
+ 15    s    c74    c69    c59   c66                                                           $head tumor
+ 16   so   30.                                                                                $air surrounding the phantom
+ 17   rcc   0.00 -30.00   0.00   0.00  30.00   0.00   c42                                     $neck skeletal muscles
+ 18   rcc   0.00 -30.00   0.00   0.00  30.00   0.00   c46                                     $neck skin
+ 19   box   c9 c10 c11 c12 0.0 0.0 0.0 c13 0.0 0.0 0.0 c14                                    $face bone 1
+ 20   box   c30 c31 c32 c33 0.0 0.0 0.0 c34 0.0 0.0 0.0 c35                                   $face skin                                           
+ 21   rcc   0.00 -30.00  -1.00   0.00  30.00   0.00   c40                                     $neck bone                  https://www.researchgate.net/figure/Mean-Cervical-Spine-Transverse-Foraminal-Dimensions-mm_tbl1_44576050
+ 22   rcc   0.00 -30.00  -1.00   0.00  26.00   0.00   c36                                     $neck nervous tissue                  https://www.scielo.cl/pdf/ijmorphol/v32n4/art08.pdf
+ 23   rcc   0.00 -30.00   1.3    0.00  21.00   0.00   1.00                                    $neck smooth muscles
+ 24   box   c2 c3 c4 c5 0.0 0.0 0.0 c6 0.0 0.0 0.0 c7                                         $face smooth muscles
+ 26   sq    1.35 1.3 0.8 5.999999999999999 2.5 5.0 c86 4.35 1.9 6.2                           $head skeletal muscles   
+ 28   sq    1.35 1.3 0.8 5.999999999999999 2.5 5.0 c87 4.35 1.9 6.2                           $head fat
+ 29   rcc   0.00 -30.00   0.00   0.00  30.00   0.00   c44                                     $neck fat  
+ 30   box   c23 c24 c25 c26 0.0 0.0 0.0 c27 0.0 0.0 0.0 c28                                   $face fat
+ 31   box   c16 c17 c18 c19 0.0 0.0 0.0 c20 0.0 0.0 0.0 c21                                   $face skeletal muscles
+ 32   rcc   0.00 -30.00  -1.00   0.00  30.00   0.00   c38                                     $neck dura&CSF
+ 33    s   -c47 c55 c49   1.2                                                                 $face eye1
+ 34    s    c47 c55 c49   1.2                                                                 $face eye2
+ 36   box  -5.0 -3.0 0.0 10.0 0.0 0.0 0.0 -4.0 0.0 0.0 0.0 8.0                                $face bone2
+ 38    s    0.0 -24.0 13.0 c70                                                                $head dura&csf2
+ 39    s    0.0 -24.0 13.0 c71                                                                $head dura&csf3
+ 40    s    0.0 -24.0 13.0 18.841                                                             $face smooth muscles 2
+ 41   box   c9  -4.0 10.0 c12 0.0 0.0 0.0 -1.0 0.0 0.0 0.0 -9.0                               $face bone 3
+ 42    s    0.0 -2.8 9.5 0.6                                                                  $air cavity 
+ 43    s    0.0 -24.0 13.0 17.0                                                               $face smooth muscles 3
  44    P    1.3 c53 c50 -1.3 c53 c50 0 c53 c52                                                $nose_base
  45    P    0 c51 c50 1.3 c53 c50 0 c53 c52                                                   $nose_xpos
  46    P    0 c51 c50 -1.3 c53 c50 0 c53 c52                                                  $nose_xneg
@@ -278,8 +278,8 @@ set: c75[c76-c84*c77] c85[c78-c84*c79] c86[c80-c84*c81] c87[c82-c84*c83]
  49    P    0 c55 c54 1.0 c57 c54 0 c57 c56                                                   $nose_xpos
  50    P    0 c55 c54 -1. c57 c54 0 c57 c56                                                   $nose_xneg
  51    P    0 c55 c54 -1. c57 c54 1. c57 c54                                                  $nose z_min
- 52   box   -2.0 -8.7 2.8 4.0 0.0 0.0 0.0 3.4  0.0 0.0 0.0 7.3                                $f_sk
- 53    s    0.0 -2.5 -1.0 1.5                                                                 $f_sm_4
+ 52   box   -2.0 -8.7 2.8 4.0 0.0 0.0 0.0 3.4  0.0 0.0 0.0 7.3                                $face skeletal muscles 2
+ 53    s    0.0 -2.5 -1.0 1.5                                                                 $face smooth muscles 4
  54   rcc   c60 c58 c59 c67 0.0 0.0 c61                                                       $detector - lithium
  55   rcc   c64 c58 c59 c65 0.0 0.0 c63                                                       $detector - aluminium
  56   PX    c73                                                                               $plane on which the source is placed
