@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this PHITS input file or user routine, please cite this repository."
+title: "Parametric PHITS head and neck phantom for neutron capture therapy simulations"
+authors:
+  - family-names: "Gajda"
+    given-names: "Jacek"
+version: "1.0.0"
+date-released: "2026-07-03"
+repository-code: "https://github.com/jacekgajda/phits-parametric-head-phantom"
+license: "CC-BY-4.0"
+keywords:
+  - PHITS
+  - Monte Carlo simulation
+  - neutron capture therapy
+  - BNCT
+  - head phantom
+  - detector response
