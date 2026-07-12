@@ -14,6 +14,14 @@ $600 - detailed & 1 min., 400 - optimal & 30 s, 200 - general & 10 s
 set: c84[0.5]
 $skull thickness which regulates shape of bone, muscle, fat and skin (0.25,1.5)
 
+set: c88[50.0E-06] 
+$the concentration of a chosen isotope in E-6 ppm
+
+set: %element%[10B]
+$the element parameter allows for modyfying which NCT is being studied;
+$ - 157Gd  - for GdNCT
+$ - 6Li    - for LiNCT
+$ - 10B    - for BNCT
 
 $$$        SWITCHES FOR TALLIES       $$$
 set: %switch%[on]
@@ -99,29 +107,32 @@ mat[4]                                                      $Water, Liquid
             H       -0.111898
             O       -0.888102
 
+set: c89[1-c88] c90[0.107] c91[0.145] c92[0.022] c93[.712] c94[0.002] c95[0.004] c96[0.002] c97[0.003] c98[0.003]
+
 mat[5]                                                      $Brain, Grey/White Matter (50:50) (ICRU-44)
-            H        -0.107
-            C        -0.145
-            N        -0.022
-            O        -0.712
-            Na       -0.002
-            P        -0.004
-            S        -0.002
-            Cl       -0.003
-            K        -0.003
+            H        -c90
+            C        -c91
+            N        -c92
+            O        -c93
+            Na       -c94
+            P        -c95
+            S        -c96
+            Cl       -c97
+            K        -c98
 
 
-mat[6]                                                      $Tumor 
-            H        -0.107                                 
-            C        -0.145
-            N        -0.022
-            O        -0.712
-            Na       -0.002
-            P        -0.004
-            S        -0.002
-            Cl       -0.003
-            K        -0.003
-           10B       -1.147E-2                             
+
+mat[6]                                                      $Tumor with 50 ppm of B-10
+            H              -c90*c89
+            C              -c91*c89
+            N              -c92*c89
+            O              -c93*c89
+            Na             -c94*c89
+            P              -c95*c89
+            S              -c96*c89
+            Cl             -c97*c89
+            K              -c98*c89
+            %element%      -5.000000e-05           
 
 mat[7]                                                      $Muscle, Skeletal (ICRU-44) 
             H        -0.102
@@ -241,35 +252,35 @@ set: c75[c76-c84*c77] c85[c78-c84*c79] c86[c80-c84*c81] c87[c82-c84*c83]
 
 
     
- 11   sq    1.35 1.3 0.8 5.999999999999999 2.5 5.0 c85 4.35 1.9 6.2                           $head skin 
- 12   sq    1.35 1.3 0.8 5.999999999999999 2.5 5.0 c75 4.35 1.9 6.2                           $head bone
- 13   sq    1.35 1.3 0.8 5.999999999999999 2.5 5.0 -4.581735276400167 4.35 1.9 6.2            $head dura&csf 
- 14   sq    1.35   1.30   0.80  6.00   2.50    5.00   0.10  4.35    1.90   6.20               $head nervous tissue
- 15    s    c74    c69    c59   c66                                                           $head tumor
- 16   so   30.                                                                                $air surrounding the phantom
- 17   rcc   0.00 -30.00   0.00   0.00  30.00   0.00   c42                                     $neck skeletal muscles
- 18   rcc   0.00 -30.00   0.00   0.00  30.00   0.00   c46                                     $neck skin
- 19   box   c9 c10 c11 c12 0.0 0.0 0.0 c13 0.0 0.0 0.0 c14                                    $face bone 1
- 20   box   c30 c31 c32 c33 0.0 0.0 0.0 c34 0.0 0.0 0.0 c35                                   $face skin                                           
- 21   rcc   0.00 -30.00  -1.00   0.00  30.00   0.00   c40                                     $neck bone                  https://www.researchgate.net/figure/Mean-Cervical-Spine-Transverse-Foraminal-Dimensions-mm_tbl1_44576050
- 22   rcc   0.00 -30.00  -1.00   0.00  26.00   0.00   c36                                     $neck nervous tissue                  https://www.scielo.cl/pdf/ijmorphol/v32n4/art08.pdf
- 23   rcc   0.00 -30.00   1.3    0.00  21.00   0.00   1.00                                    $neck smooth muscles
- 24   box   c2 c3 c4 c5 0.0 0.0 0.0 c6 0.0 0.0 0.0 c7                                         $face smooth muscles
- 26   sq    1.35 1.3 0.8 5.999999999999999 2.5 5.0 c86 4.35 1.9 6.2                           $head skeletal muscles   
- 28   sq    1.35 1.3 0.8 5.999999999999999 2.5 5.0 c87 4.35 1.9 6.2                           $head fat
- 29   rcc   0.00 -30.00   0.00   0.00  30.00   0.00   c44                                     $neck fat  
- 30   box   c23 c24 c25 c26 0.0 0.0 0.0 c27 0.0 0.0 0.0 c28                                   $face fat
- 31   box   c16 c17 c18 c19 0.0 0.0 0.0 c20 0.0 0.0 0.0 c21                                   $face skeletal muscles
- 32   rcc   0.00 -30.00  -1.00   0.00  30.00   0.00   c38                                     $neck dura&CSF
- 33    s   -c47 c55 c49   1.2                                                                 $face eye1
- 34    s    c47 c55 c49   1.2                                                                 $face eye2
- 36   box  -5.0 -3.0 0.0 10.0 0.0 0.0 0.0 -4.0 0.0 0.0 0.0 8.0                                $face bone2
- 38    s    0.0 -24.0 13.0 c70                                                                $head dura&csf2
- 39    s    0.0 -24.0 13.0 c71                                                                $head dura&csf3
- 40    s    0.0 -24.0 13.0 18.841                                                             $face smooth muscles 2
- 41   box   c9  -4.0 10.0 c12 0.0 0.0 0.0 -1.0 0.0 0.0 0.0 -9.0                               $face bone 3
- 42    s    0.0 -2.8 9.5 0.6                                                                  $air cavity 
- 43    s    0.0 -24.0 13.0 17.0                                                               $face smooth muscles 3
+ 11   sq    1.35 1.3 0.8 5.999999999999999 2.5 5.0 c85 4.35 1.9 6.2                           $h_s 
+ 12   sq    1.35 1.3 0.8 5.999999999999999 2.5 5.0 c75 4.35 1.9 6.2                           $h_b
+ 13   sq    1.35 1.3 0.8 5.999999999999999 2.5 5.0 -4.581735276400167 4.35 1.9 6.2            $h_d 
+ 14   sq    1.35   1.30   0.80  6.00   2.50    5.00   0.10  4.35    1.90   6.20               $h_n
+ 15    s    c74    c69    c59   c66                                                           $h_t
+ 16   so   30.                                                                                $air
+ 17   rcc   0.00 -30.00   0.00   0.00  30.00   0.00   c42                                     $n_sk
+ 18   rcc   0.00 -30.00   0.00   0.00  30.00   0.00   c46                                     $n_s
+ 19   box   c9 c10 c11 c12 0.0 0.0 0.0 c13 0.0 0.0 0.0 c14                                    $f_b_1
+ 20   box   c30 c31 c32 c33 0.0 0.0 0.0 c34 0.0 0.0 0.0 c35                                   $f_s                                           
+ 21   rcc   0.00 -30.00  -1.00   0.00  30.00   0.00   c40                                     $n_b                  https://www.researchgate.net/figure/Mean-Cervical-Spine-Transverse-Foraminal-Dimensions-mm_tbl1_44576050
+ 22   rcc   0.00 -30.00  -1.00   0.00  26.00   0.00   c36                                     $n_n                  https://www.scielo.cl/pdf/ijmorphol/v32n4/art08.pdf
+ 23   rcc   0.00 -30.00   1.3    0.00  21.00   0.00   1.00                                    $n_sm
+ 24   box   c2 c3 c4 c5 0.0 0.0 0.0 c6 0.0 0.0 0.0 c7                                         $f_sm_1
+ 26   sq    1.35 1.3 0.8 5.999999999999999 2.5 5.0 c86 4.35 1.9 6.2                           $h_sk   
+ 28   sq    1.35 1.3 0.8 5.999999999999999 2.5 5.0 c87 4.35 1.9 6.2                           $h_f
+ 29   rcc   0.00 -30.00   0.00   0.00  30.00   0.00   c44                                     $n_f  
+ 30   box   c23 c24 c25 c26 0.0 0.0 0.0 c27 0.0 0.0 0.0 c28                                   $f_f
+ 31   box   c16 c17 c18 c19 0.0 0.0 0.0 c20 0.0 0.0 0.0 c21                                   $f_sk
+ 32   rcc   0.00 -30.00  -1.00   0.00  30.00   0.00   c38                                     $n_d 
+ 33    s   -c47 c55 c49   1.2                                                                 $f_e_1
+ 34    s    c47 c55 c49   1.2                                                                 $f_e_2
+ 36   box  -5.0 -3.0 0.0 10.0 0.0 0.0 0.0 -4.0 0.0 0.0 0.0 8.0                                $f_n_2
+ 38    s    0.0 -24.0 13.0 c70                                                                $h_d_2
+ 39    s    0.0 -24.0 13.0 c71                                                                $h_d_3
+ 40    s    0.0 -24.0 13.0 18.841                                                             $f_sm_3
+ 41   box   c9  -4.0 10.0 c12 0.0 0.0 0.0 -1.0 0.0 0.0 0.0 -9.0                               $f_b_2
+ 42    s    0.0 -2.8 9.5 0.6                                                                  $zatoki czołowe 
+ 43    s    0.0 -24.0 13.0 17.0                                                               $f_sm_4
  44    P    1.3 c53 c50 -1.3 c53 c50 0 c53 c52                                                $nose_base
  45    P    0 c51 c50 1.3 c53 c50 0 c53 c52                                                   $nose_xpos
  46    P    0 c51 c50 -1.3 c53 c50 0 c53 c52                                                  $nose_xneg
@@ -278,8 +289,8 @@ set: c75[c76-c84*c77] c85[c78-c84*c79] c86[c80-c84*c81] c87[c82-c84*c83]
  49    P    0 c55 c54 1.0 c57 c54 0 c57 c56                                                   $nose_xpos
  50    P    0 c55 c54 -1. c57 c54 0 c57 c56                                                   $nose_xneg
  51    P    0 c55 c54 -1. c57 c54 1. c57 c54                                                  $nose z_min
- 52   box   -2.0 -8.7 2.8 4.0 0.0 0.0 0.0 3.4  0.0 0.0 0.0 7.3                                $face skeletal muscles 2
- 53    s    0.0 -2.5 -1.0 1.5                                                                 $face smooth muscles 4
+ 52   box   -2.0 -8.7 2.8 4.0 0.0 0.0 0.0 3.4  0.0 0.0 0.0 7.3                                $f_sk
+ 53    s    0.0 -2.5 -1.0 1.5                                                                 $f_sm_4
  54   rcc   c60 c58 c59 c67 0.0 0.0 c61                                                       $detector - lithium
  55   rcc   c64 c58 c59 c65 0.0 0.0 c63                                                       $detector - aluminium
  56   PX    c73                                                                               $plane on which the source is placed
@@ -302,7 +313,7 @@ set: c75[c76-c84*c77] c85[c78-c84*c79] c86[c80-c84*c81] c87[c82-c84*c83]
  100    -1             16                                                                                        $void (empty space surrounding the bubble of air, in which the phantom is placed)
 
 [ Transform ]
-*tr1  0.0 0.0 0.0  c68 c69 c59  0.0 0.0  2 -45  3 -45 3
+*tr1  -1.0 0.0 0.0  c68 c69 c59  0.0 0.0  2 -45  3 -45 3
 
 [ V o l u m e ]
     reg      vol      
@@ -312,7 +323,7 @@ set: c75[c76-c84*c77] c85[c78-c84*c79] c86[c80-c84*c81] c87[c82-c84*c83]
     114      1.6722E+03 
     115      4.2599E+00 
     116      9.2970E+02 
-    117      3.1633E+02
+    117      3.1633E+02     
     118      6.3870E+02
     119      1.4522E+01
     101      1.6179E+04 
