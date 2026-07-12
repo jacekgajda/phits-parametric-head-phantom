@@ -40,7 +40,8 @@ Several important simulation parameters are defined near the beginning of the PH
 - neutron source energy,
 - skull thickness,
 - source geometry and position and tumor position/depth,
-- selected detector/tally settings ("switches").
+- selected detector/tally settings ("switches"),
+- element used in NCT and its concentration.
 
 The exact variable names are documented in comments inside the `.inp` file.
 
